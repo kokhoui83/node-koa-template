@@ -1,7 +1,10 @@
 import koa from 'koa'
-const app = new koa();
+import bodyParser from 'koa-bodyparser'
 
 const port = process.env.PORT || 3001
+const app = new koa()
+
+app.use(bodyParser())
 
 import test from './routes/test'
 import proxy from './routes/proxy'

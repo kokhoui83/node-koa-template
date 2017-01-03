@@ -12,6 +12,7 @@ router.get('/', async (context, next) => {
 
 router.post('/', async (context, next) => {
   try {
+    console.log('body: ', context.request.body)
     context.body = 'POST /test'
   } catch (err) {
     context.body = { message: err.message }
