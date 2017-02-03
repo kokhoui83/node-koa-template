@@ -1,13 +1,13 @@
 import koa from 'koa'
 import bodyParser from 'koa-bodyparser'
 
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3000
 const app = new koa()
 
 app.use(bodyParser())
 
+import ping from './routes/ping'
 import test from './routes/test'
-import proxy from './routes/proxy'
 
 // x-response-time
 app.use(async (context, next) => {
@@ -25,7 +25,7 @@ app.use(async (context, next) => {
   console.log('%s %s - %s', context.method, context.url, ms);
 });
 
+app.use(ping.routes()).use(ping.allowedMethods())
 app.use(test.routes()).use(test.allowedMethods())
-app.use(proxy.routes()).use(proxy.allowedMethods())
 
 app.listen(port)
